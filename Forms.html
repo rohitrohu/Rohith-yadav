@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button[type="reset"] {
+      background-color: #f44336;
+    }
+  </style>
+</head>
+<body>
+
+<form id="surveyForm">
+  <label for="firstName">First Name:</label>
+  <input type="text" id="firstName" required>
+
+  <label for="lastName">Last Name:</label>
+  <input type="text" id="lastName" required>
+
+  <label for="dob">Date of Birth:</label>
+  <input type="date" id="dob" required>
+
+  <label for="country">Country:</label>
+  <select id="country" required>
+    <option value="usa">USA</option>
+    <option value="canada">Canada</option>
+    <!-- Add more countries as needed -->
+  </select>
+
+  <label>Gender:</label>
+  <label><input type="checkbox" id="male"> Male</label>
+  <label><input type="checkbox" id="female"> Female</label>
+  <label><input type="checkbox" id="other"> Other</label>
+
+  <label for="profession">Profession:</label>
+  <input type="text" id="profession" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" required>
+
+  <label for="mobile">Mobile Number:</label>
+  <input type="tel" id="mobile" required>
+
+  <button type="submit" onclick="submitForm(event)">Submit</button>
+  <button type="reset">Reset</button>
+</form>
+
+<script type="module">
+  import { showAlert } from './popup.js';
+
+  function submitForm(event) {
+    event.preventDefault();
+
+    // Get form values
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const dob = document.getElementById('dob').value;
+    const country = document.getElementById('country').value;
+    const gender = document.querySelectorAll('input[type="checkbox"]:checked');
+    const profession = document.getElementById('profession').value;
+    const email = document.getElementById('email').value;
+    const mobile = document.getElementById('mobile').value;
+
+    // Validate all fields (add more validation as needed)
+
+    // Display values in a popup
+    const message = `First Name: ${firstName}\nLast Name: ${lastName}\nDate of Birth: ${dob}\nCountry: ${country}\nGender: ${Array.from(gender).map(checkbox => checkbox.nextSibling.nodeValue.trim()).join(', ')}\nProfession: ${profession}\nEmail: ${email}\nMobile Number: ${mobile}`;
+
+    showAlert(message);
+
+    // Reset the form
+    document.getElementById('surveyForm').reset();
+  }
+</script>
+
+</body>
+</html>
